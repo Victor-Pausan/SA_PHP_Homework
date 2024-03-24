@@ -19,14 +19,15 @@ if(
         ":description" => $_POST["description"],
     ]);
 }
-$stmt = $pdo->query("SELECT class_id, gym_location, date, time, trainer_name FROM classes");
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if(isset($_POST["delete"])){
     $sql = 'DELETE FROM classes WHERE class_id= :zip';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([":zip"=>$_POST["delete"]]);
 }
+
+$stmt = $pdo->query("SELECT class_id, gym_location, date, time, trainer_name FROM classes");
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
