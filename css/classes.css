@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #d8dee5;
+}
+
+#page-container {
+    position: relative;
+}
+
+main {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    min-height: 900px;
+}
+
+.classes-form {
+    margin: 5rem 0;
+}
+
+.form {
+    max-height: 700px;
+    width: 100%
+}
+
+form .submit {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form .submit:hover {
+    background-color: #0056b3;
+}
+
+.delete-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-btn {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    background: #e62222;
+}
+
+.delete-btn,
+.delete-btn span {
+    transition: 200ms;
+}
+
+.delete-btn .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+}
+
+.delete-btn .icon {
+    position: absolute;
+    border-left: 1px solid #c41b1b;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn svg {
+    width: 15px;
+    fill: #eee;
+}
+
+.delete-btn:hover {
+    background: #ff3636;
+}
+
+.delete-btn:hover .text {
+    color: transparent;
+}
+
+.delete-btn:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+.delete-btn:focus {
+    outline: none;
+}
+
+.delete-btn:active .icon svg {
+    transform: scale(0.8);
+}
+
+.schedule {
+    max-height: 22rem;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.card {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.col-5 {
+    min-width: fit-content;
+}
