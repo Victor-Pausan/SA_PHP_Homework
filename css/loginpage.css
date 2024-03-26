@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #d8dee5;
+}
+
+#page-container {
+    position: relative;
+}
+
+main {
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    min-height: 400px;
+}
+
+.classes-form {
+    margin: 5rem 0;
+}
+
+.form {
+    max-height: 700px;
+    width: 100%
+}
+
+form .submit {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form .submit:hover {
+    background-color: #0056b3;
+}
+
+.col-5 {
+    min-width: fit-content;
+}
+
+.login-link{
+    margin-top: 2rem;
+}
+
+.login-link a{
+    color:black;
+}
