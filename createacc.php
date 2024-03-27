@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once "includes/dbh.inc.php";
 
 if(
@@ -13,9 +15,18 @@ if(
     $stmt->execute([
         ":email"=> $_POST["email"],
         ":password"=> $_POST["password"],
-        "fullname"=> $_POST["fullname"],
-        "phonenr"=> $_POST["phonenr"]
+        ":fullname"=> $_POST["fullname"],
+        ":phonenr"=> $_POST["phonenr"]
     ]);
+
+    $_SESSION["auto_login_email"] = $_POST["email"];
+    $_SESSION["auto_login_password"] = $_POST["password"];
+
+    header("Location: autologin.php");
+}
+
+if(isset($_SESSION["user_id"]) && isset($_SESSION["email"])){
+  header("Location: home.php");
 }
 ?>
 
@@ -45,7 +56,7 @@ if(
     <header class="header">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="home.php">
             <img class="logo" src="images/Logo.png" title="Empower your strength and mind" alt="Iron Anchor Athletics">
           </a>
           <h1 class="nav-title">Iron Anchor Athletics</h1>
@@ -67,7 +78,7 @@ if(
               <a class="nav-link navbar-brand" href="classes.html" title="Coming soon">Classes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link navbar-brand" href="contact.html" title="Coming soon">Contact</a>
+              <a class="nav-link navbar-brand" href="loginpage.php" title="Coming soon">Log in</a>
             </li>
           </ul>
         </div>
@@ -109,7 +120,7 @@ if(
                   <div id="password-error" class="error-message"></div>
                   <label for="password">Password:</label>
                 </div>
-                <button class="submit" type="submit">Submit</button>
+                <button class="submit" type="submit">Create account</button>
               </form>
             </div>
           </div>
@@ -125,7 +136,7 @@ if(
             <ul class="nav flex-column">
               <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
               <li class="nav-item mb-2"><a href="#clubs" class="nav-link p-0 text-muted">Clubs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
               <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 text-muted">About</a></li>
             </ul>
           </div>

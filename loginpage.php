@@ -1,24 +1,28 @@
 <?php
+session_start();
+
 require_once "includes/dbh.inc.php";
 
-$sql = "SELECT email, password_hash FROM users";
-$stmt = $pdo->query($sql);
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$loginMessage = '';
 
-if(
-    isset($_POST["email"])
-    && isset($_POST["password"])
-){
-    foreach($rows as $row){
-        $email = $row["email"];
-        $password = $row["password"];
-        if($_POST["email"] === $email && $_POST["password"] === $password){
-            $_SESSION["email"] = $email;
-            $_SESSION["password"] = $password;
-        }
+if(isset($_POST["email"]) && isset($_POST["password"])){
+    $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+    $password = $_POST["password"];
+
+    $sql = "SELECT user_id, email, password_hash FROM users WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $user= $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if($user && $password === $user["password_hash"]){ 
+      $_SESSION["user_id"] = $user["user_id"];
+      $_SESSION["email"] = $user["email"];
+
+      header("Location: home.php");
+    } else{
+      $loginMessage = "Incorrect email or password";
     }
-} else{
-    exit('Please fill both the username and password fields!');
 }
 ?>
 
@@ -39,7 +43,7 @@ if(
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
-  <script src="js/classes-form.js" defer></script>
+  <!-- <script src="js/classes-form.js" defer></script> -->
   <title>Log in</title>
 </head>
 
@@ -48,7 +52,7 @@ if(
     <header class="header">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="home.php">
             <img class="logo" src="images/Logo.png" title="Empower your strength and mind" alt="Iron Anchor Athletics">
           </a>
           <h1 class="nav-title">Iron Anchor Athletics</h1>
@@ -70,7 +74,7 @@ if(
               <a class="nav-link navbar-brand" href="classes.html" title="Coming soon">Classes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link navbar-brand" href="contact.html" title="Coming soon">Contact</a>
+              <a class="nav-link navbar-brand" href="loginpage.php" title="Coming soon">Log in</a>
             </li>
           </ul>
         </div>
@@ -88,6 +92,7 @@ if(
                 <a href="createacc.php">
                     <h5>CREATE AN ACCOUNT</h5>
                 </a>
+                <h5><?php echo $loginMessage ?></h5>
               </div>
             </div>
             <div class="col">
@@ -102,7 +107,7 @@ if(
                   <div id="password-error" class="error-message"></div>
                   <label for="password">Password:</label>
                 </div>
-                <button class="submit" type="submit">Submit</button>
+                <button class="submit" type="submit">Log in</button>
               </form>
             </div>
           </div>
@@ -118,7 +123,7 @@ if(
             <ul class="nav flex-column">
               <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
               <li class="nav-item mb-2"><a href="#clubs" class="nav-link p-0 text-muted">Clubs</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
               <li class="nav-item mb-2"><a href="about.html" class="nav-link p-0 text-muted">About</a></li>
             </ul>
           </div>
