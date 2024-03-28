@@ -18,7 +18,7 @@ main {
     min-height: 400px;
 }
 
-.classes-form {
+.login-form {
     margin: 5rem 0;
 }
 
@@ -51,4 +51,8 @@ form .submit:hover {
 
 .login-link a{
     color:black;
+}
+
+.invalid-login-msg{
+    color: red;
 }

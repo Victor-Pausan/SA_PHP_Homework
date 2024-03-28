@@ -3,7 +3,18 @@ session_start();
 
 require_once "includes/dbh.inc.php";
 
-$loginMessage = '';
+//Check if user is already logged in:
+//
+if(isset($_SESSION["user_id"]) && isset($_SESSION["email"])){
+  header("Location: home.php");
+}
+
+//Check for login errors
+//
+if(!isset($_SESSION["login_error"])){
+  $_SESSION["login_error"] = "";
+}
+$loginMessage = $_SESSION["login_error"];
 
 if(isset($_POST["email"]) && isset($_POST["password"])){
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
@@ -15,13 +26,16 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     $stmt->execute();
     $user= $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if($user && $password === $user["password_hash"]){ 
+    if($user && $password === $user["password_hash"]){
       $_SESSION["user_id"] = $user["user_id"];
       $_SESSION["email"] = $user["email"];
+      $_SESSION["login_error"] = '';
 
       header("Location: home.php");
     } else{
-      $loginMessage = "Incorrect email or password";
+      $_SESSION["login_error"] = "Invalid email or passwordl!";
+
+      header("Location: invalidlogin.php");
     }
 }
 ?>
@@ -81,7 +95,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
       </nav>
     </header>
     <main class="main">
-      <section class="classes-form">
+      <section class="login-form">
         <div class="container">
           <div class="row">
             <div class="col-5">
@@ -92,7 +106,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
                 <a href="createacc.php">
                     <h5>CREATE AN ACCOUNT</h5>
                 </a>
-                <h5><?php echo $loginMessage ?></h5>
+                <h5 class="invalid-login-msg"><?php echo $loginMessage ?></h5>
               </div>
             </div>
             <div class="col">
