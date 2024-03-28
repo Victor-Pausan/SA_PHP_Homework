@@ -57,7 +57,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
-  <!-- <script src="js/classes-form.js" defer></script> -->
+  <script src="js/login-form-validation.js" defer></script>
   <title>Log in</title>
 </head>
 

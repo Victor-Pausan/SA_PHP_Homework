@@ -47,7 +47,7 @@ if(isset($_SESSION["user_id"]) && isset($_SESSION["email"])){
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
-  <script src="js/classes-form.js" defer></script>
+  <script src="js/createacc-form-validation.js" defer></script>
   <title>Create an account</title>
 </head>
 
